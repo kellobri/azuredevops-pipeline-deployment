@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 #
 # Set the RunAs User for a piece of Content 
-# given the Content GUID, RunAs User GUID, and a valid API key
+# given the Content GUID, UNIX user name, and a valid API key
+# - Applies only to executable content types 
+# - Only administrators can change this value
 #
 
 # Build the JSON to create a runas user update request
