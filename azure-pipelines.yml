@@ -1,0 +1,45 @@
+#
+# RStudio Connect Deployment Pipeline Template
+# Includes optional steps
+#  
+
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+- group: 'RStudio Connect Vars'
+- name: CONTENT_DIRECTORY
+  value: content-dir
+- name: VANITY_NAME
+  value: azure-devops-template
+- name: UNIQ_NAME
+  value: unique-name-example
+
+steps:
+- task: Bash@3
+  displayName: 'Create Upload Deploy'
+  inputs:
+    filePath: 'create-upload-deploy.sh'
+  env:
+    CONNECT_API_KEY: $(CONNECT_API_KEY)
+- task: Bash@3
+  displayName: 'Update RunAs User'
+  inputs:
+    filePath: 'optional-steps/runas-user.sh'
+  env:
+    CONNECT_API_KEY: $(CONNECT_API_KEY)
+- task: Bash@3
+  displayName: 'Set Vanity URL'
+  inputs:
+    filePath: 'optional-steps/set-vanity-url.sh'
+  env:
+    CONNECT_API_KEY: $(CONNECT_API_KEY)
+- task: Bash@3
+  displayName: 'Update Access Control List'
+  inputs:
+    filePath: 'optional-steps/update-acl.sh'
+  env:
+    CONNECT_API_KEY: $(CONNECT_API_KEY)
